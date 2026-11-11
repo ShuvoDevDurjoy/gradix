@@ -1,8 +1,8 @@
 import numpy as np
 import torch
 
-from axiom.nn.modules.conv2d import Conv2D
-from axiom.tensor import Tensor
+from gradix.nn.modules import Conv2D
+from gradix.tensor import Tensor
 
 
 def check_case(kernel_size, stride, padding):

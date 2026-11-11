@@ -1,6 +1,4 @@
-from axiom.nn.modules.module import Module
-from axiom.nn.modules.linear import Linear
-from axiom.nn.modules.conv2d import Conv2D
+from gradix.nn.modules import Conv2D, Linear, Module
 
 
 class MNISTModel(Module):

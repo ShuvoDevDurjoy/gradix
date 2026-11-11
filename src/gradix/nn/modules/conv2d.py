@@ -1,9 +1,9 @@
-from axiom.tensor import Tensor
+from gradix.tensor import Tensor
 import numpy as np
 
-from axiom.nn.modules.module import Module
-from axiom.init import _get_fan_in_and_fan_out, kaiming_uniform, uniform
-from axiom.nn import functional as F
+from gradix.nn.modules.module import Module
+from gradix.init import _get_fan_in_and_fan_out, kaiming_uniform, uniform
+from gradix.nn import functional as F
 
 
 class Conv2D(Module): 
@@ -29,19 +29,20 @@ class Conv2D(Module):
         self.bias = None
         self.weight = Tensor(
             kaiming_uniform((out_channels, in_channels, kernel, kernel), np.sqrt(5.0)), 
-            requires_grad = True
+            requires_grad = True, 
+            dtype = np.float32
         )
         if use_bias: 
             fan_in, _ = _get_fan_in_and_fan_out(self.weight.shape)
             bound = (1.0 / np.sqrt(fan_in)) if fan_in > 0 else 0
-            self.bias = Tensor(uniform((self.out_channels, ), -bound, bound), requires_grad=True)
+            self.bias = Tensor(uniform((self.out_channels, ), -bound, bound), requires_grad=True, dtype=np.float32)
 
     def parameters(self): 
         return [self.weight] if self.bias is None else [self.weight, self.bias]
 
     def forward(self, x): 
         if not isinstance(x, Tensor) or x.ndim != 4: 
-            raise ValueError(f'Conv2D extects a tensor of shape (batch, channel, height, width) but found one of shape: {x.shape}')
+            raise ValueError(f'Conv2D expects a tensor of shape (batch, channel, height, width) but found one of shape: {x.shape}')
         
         batch_size, in_channels, height, width = x.shape
 

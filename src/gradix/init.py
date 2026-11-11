@@ -1,7 +1,7 @@
 import numpy as np
 
-def uniform(shape, left_bound = 0.0, right_bound = 1.0): 
-    return np.random.uniform(left_bound, right_bound, size=shape)
+def uniform(shape, left_bound = 0.0, right_bound = 1.0, dtype = np.float32): 
+    return np.random.uniform(left_bound, right_bound, size=shape).astype(dtype)
 
 def kaiming_uniform(shape, a = np.sqrt(5.0)):
     fan_in, fan_out = _get_fan_in_and_fan_out(shape)
@@ -15,11 +15,10 @@ def kaiming_uniform(shape, a = np.sqrt(5.0)):
 
 
 def _get_fan_in_and_fan_out(shape): 
-    assert isinstance(shape, (int, tuple, list))
+    assert isinstance(shape, (tuple, list))
 
     if len(shape) < 2: 
         raise ValueError('Can not implement fan in and fan out for shape less than 2')
-    # print(shape)
     fan_in = shape[1]
     fan_out = shape[0]
 
@@ -28,13 +27,7 @@ def _get_fan_in_and_fan_out(shape):
     if len(shape) > 2: 
         for s in shape[2:]: 
             receptive_field_size *= s
-    # print(receptive_field_size)
-    # print(fan_in)
-    # print(fan_out)
     fan_in *= receptive_field_size
     fan_out *= receptive_field_size
-    # print('fan in out after applying receptive size')
-    # print(fan_in)
-    # print(fan_out)
 
     return fan_in, fan_out

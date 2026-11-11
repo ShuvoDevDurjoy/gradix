@@ -2,4 +2,33 @@ __pycache__
 .idea
 .venv
 .vscode
-train
+.conda
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build and install
+build/
+dist/
+tests/
+*.egg-info/
+pip-wheel-metadata/
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db

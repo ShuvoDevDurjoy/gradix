@@ -1,9 +1,5 @@
 
-import numpy as np
-from axiom.tensor import Tensor
-from axiom.nn.modules.module import Module
-import axiom.nn.functional as F
-from axiom.init import _get_fan_in_and_fan_out, kaiming_uniform, uniform
+from gradix.nn.modules.module import Module
 
 
 class Upsample(Module): 

@@ -1,20 +1,27 @@
-import axiom.nn.tensor as tensor
 import numpy as np
-from axiom.nn.tensor import Tensor
-from axiom.nn._validate import _validate_int_tuple
+from gradix.tensor import Tensor
+
+def _validate_int_tuple(*dims, func_name = ''): 
+    dims = tuple(dims)
+    if len(dims) == 1 and isinstance(dims, (tuple, list)): 
+        dims = tuple(dims[0])
+
+    if any((not isinstance(d, int) or d < 0) for d in dims): 
+        raise ValueError('Expected Positive int in : {func_name}')
+    return dims
 
 
-def sigmoid(x: tensor): 
+def sigmoid(x: Tensor): 
     return 1 / (1 + (-x).exp())
 
-def softmax(x: tensor): 
+def softmax(x: Tensor): 
     max_x = x.max()
     x = x - max_x
     ex = x.exp()
     sum_ex = ex.sum()
     return ex / sum_ex
 
-def log_softmax(x: tensor, axis = 1): 
+def log_softmax(x: Tensor, axis = 1): 
     max_x = x.max(axis = axis, keepdims = True)
     shifted = x - max_x
     sum_ex = shifted.exp().sum(axis = axis, keepdims = True)
