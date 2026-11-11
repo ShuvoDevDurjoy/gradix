@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "gradix"
 version = "0.1.0"
 description = "A lightweight NumPy-based automatic differentiation and deep learning library"
+readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
 dependencies = [
